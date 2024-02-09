@@ -15,6 +15,8 @@ namespace LocationsAvailability.Controllers
     public class LocationsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly TimeOnly firstAvailableTime = new(10, 0);
+        private readonly TimeOnly secondAvailableTime = new(13, 0);
 
         public LocationsController(ApplicationDbContext context)
         {
@@ -25,7 +27,11 @@ namespace LocationsAvailability.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Location>>> GetLocations()
         {
-            return await _context.Locations.ToListAsync();
+            var list = await _context.Locations
+                .Where(l => (l.OpeningTime <= firstAvailableTime && l.ClosingTime >= secondAvailableTime))
+                .ToListAsync();
+
+            return list;
         }
 
         // GET: api/Locations/5

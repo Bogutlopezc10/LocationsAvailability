@@ -1,11 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using LocationsAvailability.Infrastructure;
+using LocationsAvailability.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(
+    options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new TimeOnlyJsonCoverter());
+    });
 // Check if we are naming properly the database
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
     opt.UseInMemoryDatabase("LocationsDatabase"));
