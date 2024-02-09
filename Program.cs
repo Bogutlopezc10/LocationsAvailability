@@ -1,9 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using LocationsAvailability.Models;
+using LocationsAvailability.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Check if we are naming properly the database
+builder.Services.AddDbContext<ApplicationDbContext>(opt =>
+    opt.UseInMemoryDatabase("LocationsDatabase"));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
