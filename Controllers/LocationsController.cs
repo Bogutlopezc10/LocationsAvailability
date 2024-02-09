@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LocationsAvailability.Infrastructure;
 using LocationsAvailability.Models;
+using LocationsAvailability.Queries.Interfaces;
 
 namespace LocationsAvailability.Controllers
 {
@@ -15,30 +16,26 @@ namespace LocationsAvailability.Controllers
     public class LocationsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        private readonly TimeOnly firstAvailableTime = new(10, 0);
-        private readonly TimeOnly secondAvailableTime = new(13, 0);
+        private readonly ILocationQueries _queries;
 
-        public LocationsController(ApplicationDbContext context)
+        public LocationsController(ApplicationDbContext context, ILocationQueries queries)
         {
             _context = context;
+            _queries = queries;
         }
 
         // GET: api/Locations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Location>>> GetLocations()
+        public async Task<ActionResult<IEnumerable<Location>>> GetAllLocationsAsync()
         {
-            var list = await _context.Locations
-                .Where(l => (l.OpeningTime <= firstAvailableTime && l.ClosingTime >= secondAvailableTime))
-                .ToListAsync();
-
-            return list;
+            return await _queries.FindAllAsync();
         }
 
         // GET: api/Locations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Location>> GetLocation(int id)
+        public async Task<ActionResult<Location>> GetLocationByIdAsync(int id)
         {
-            var location = await _context.Locations.FindAsync(id);
+            var location = await _queries.FindByIdAsync(id);
 
             if (location == null)
             {
@@ -50,12 +47,14 @@ namespace LocationsAvailability.Controllers
 
         // POST: api/Locations
         [HttpPost]
-        public async Task<ActionResult<Location>> PostLocation(Location location)
+        public async Task<ActionResult<Location>> PostLocationAsync(Location location)
         {
             _context.Locations.Add(location);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLocation", new { id = location.Id }, location);
+            var existingLocation = await _queries.FindByIdAsync(location.Id);
+
+            return existingLocation;
         }
     }
 }

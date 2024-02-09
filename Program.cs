@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using LocationsAvailability.Infrastructure;
 using LocationsAvailability.Utilities;
+using LocationsAvailability.Queries.Interfaces;
+using LocationsAvailability.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt =>
     opt.UseInMemoryDatabase("LocationsDatabase"));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Dependency Injection
+builder.Services.AddScoped<ILocationQueries, LocationQueries>();
 
 var app = builder.Build();
 
