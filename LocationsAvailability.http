@@ -1,0 +1,6 @@
+@LocationsAvailability_HostAddress = http://localhost:5014
+
+GET {{LocationsAvailability_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
