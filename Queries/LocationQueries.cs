@@ -30,5 +30,11 @@ namespace LocationsAvailability.Queries
         {
             return await _context.Locations.AsNoTracking().FirstOrDefaultAsync(location => location.Id == id);
         }
+
+        public async Task CreateLocationAsync(Location location)
+        {
+            _context.Locations.Add(location);
+            await _context.SaveChangesAsync();
+        }
     }
 }

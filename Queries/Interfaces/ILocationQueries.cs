@@ -6,5 +6,6 @@ namespace LocationsAvailability.Queries.Interfaces
     {
         Task<List<Location>> FindAllAsync();
         Task<Location> FindByIdAsync(int id);
+        Task CreateLocationAsync(Location location);
     }
 }
