@@ -26,13 +26,14 @@ namespace LocationsAvailability.Queries
             return list;
         }
 
-        public async Task<Location> FindByIdAsync(int id)
+        public async Task<Location> FindByIdAsync(Guid id)
         {
             return await _context.Locations.AsNoTracking().FirstOrDefaultAsync(location => location.Id == id);
         }
 
         public async Task CreateLocationAsync(Location location)
         {
+            location.Id = Guid.NewGuid();
             _context.Locations.Add(location);
             await _context.SaveChangesAsync();
         }

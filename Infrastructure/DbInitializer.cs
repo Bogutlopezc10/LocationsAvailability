@@ -14,11 +14,11 @@ namespace LocationsAvailability.Infrastructure
             if (!context.Locations.Any())
             {
                 context.Locations.AddRange(
-                    new Location { Id = 1, Name = "Pharmacy1", OpeningTime = new TimeOnly(7, 0), ClosingTime = new TimeOnly(19, 0) },
-                    new Location { Id = 2, Name = "Pharmacy2", OpeningTime = new TimeOnly(8, 0), ClosingTime = new TimeOnly(13, 0) },
-                    new Location { Id = 3, Name = "Pharmacy3", OpeningTime = new TimeOnly(7, 0), ClosingTime = new TimeOnly(12, 0) },
-                    new Location { Id = 4, Name = "Pharmacy4", OpeningTime = new TimeOnly(9, 0), ClosingTime = new TimeOnly(16, 0) },
-                    new Location { Id = 5, Name = "Pharmacy5", OpeningTime = new TimeOnly(11, 0), ClosingTime = new TimeOnly(19, 0) }
+                    new Location { Id = Guid.NewGuid(), Name = "Pharmacy1", OpeningTime = new TimeOnly(7, 0), ClosingTime = new TimeOnly(19, 0) },
+                    new Location { Id = Guid.NewGuid(), Name = "Pharmacy2", OpeningTime = new TimeOnly(8, 0), ClosingTime = new TimeOnly(13, 0) },
+                    new Location { Id = Guid.NewGuid(), Name = "Pharmacy3", OpeningTime = new TimeOnly(7, 0), ClosingTime = new TimeOnly(12, 0) },
+                    new Location { Id = Guid.NewGuid(), Name = "Pharmacy4", OpeningTime = new TimeOnly(9, 0), ClosingTime = new TimeOnly(16, 0) },
+                    new Location { Id = Guid.NewGuid(), Name = "Pharmacy5", OpeningTime = new TimeOnly(11, 0), ClosingTime = new TimeOnly(19, 0) }
                 );
                 context.SaveChanges();
             }

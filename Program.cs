@@ -3,6 +3,7 @@ using LocationsAvailability.Infrastructure;
 using LocationsAvailability.Utilities;
 using LocationsAvailability.Queries.Interfaces;
 using LocationsAvailability.Queries;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt =>
     opt.UseInMemoryDatabase("LocationsDatabase"));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Dependency Injection
 builder.Services.AddScoped<ILocationQueries, LocationQueries>();
