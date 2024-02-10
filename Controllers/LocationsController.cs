@@ -48,7 +48,7 @@ namespace LocationsAvailability.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<Location>> PostLocationAsync(CreateLocationCommand createLocationCommand)
+        public async Task<ActionResult<Location?>> PostLocationAsync(CreateLocationCommand createLocationCommand)
         {
             if(createLocationCommand.OpeningTime > createLocationCommand.ClosingTime)
             {
