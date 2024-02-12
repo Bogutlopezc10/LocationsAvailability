@@ -3,20 +3,16 @@ using LocationsAvailability.Infrastructure;
 using LocationsAvailability.Utilities;
 using LocationsAvailability.Queries.Interfaces;
 using LocationsAvailability.Queries;
-using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Add services to the container.
-
 builder.Services.AddControllers().AddJsonOptions(
     options =>
     {
         options.JsonSerializerOptions.Converters.Add(new TimeOnlyJsonCoverter());
     });
-
-// Check if we are naming properly the database
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
     opt.UseInMemoryDatabase("LocationsDatabase"));
 builder.Services.AddEndpointsApiExplorer();

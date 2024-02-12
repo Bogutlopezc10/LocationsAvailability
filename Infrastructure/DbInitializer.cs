@@ -1,6 +1,4 @@
 ﻿using LocationsAvailability.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Xml;
 
 namespace LocationsAvailability.Infrastructure
 {
